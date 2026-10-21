@@ -36,56 +36,66 @@ public class AssetTests
 
             // Wait for the asset form
             await page.WaitForURLAsync("**/hardware/create**");
-
-            // Select Company: Blick Group
            
             // Open Company dropdown
-await page.Locator(
-    "#select2-company_id_select-container"
-).ClickAsync();
+                await page.Locator(
+                    "#select2-company_id_select-container"
+                ).ClickAsync();
 
-// Get available companies
-var companies = page.Locator(".select2-results__option");
+            // Get available companies
+                var companies = page.Locator(".select2-results__option");
 
-// Wait for options to appear
-await companies.First.WaitForAsync();
+            // Wait for options to appear
+                await companies.First.WaitForAsync();
 
-// Select a random company
-int count = await companies.CountAsync();
-var random = new Random();
-int index = random.Next(count);
+            // Select a random company
+                int count = await companies.CountAsync();
+                var random = new Random();
+                int index = random.Next(count);
 
-await companies.Nth(index).ClickAsync();
+                await companies.Nth(index).ClickAsync();
 
             // Select Status: Ready to Deploy
-            await page.Locator("#select2-status_select_id-container").ClickAsync();
-            //await page.GetByText("Ready to Deploy", new() { Exact = true }).ClickAsync();
-await page.WaitForTimeoutAsync(2000);
+                await page.Locator("#select2-status_select_id-container").ClickAsync();
+                await page.WaitForTimeoutAsync(2000);
 
-// Select Status: Ready to Deploy
+            // Open the Model dropdown
+                await page.Locator("#select2-model_select_id-container").ClickAsync();
 
-   var status = page.Locator(
-    "#select2-status_select_id-container"
-);
+            // Select MacBook Pro 13"
+                await page.GetByText(
+                    "Laptops - Macbook Pro 13\" (#5525598838148367)",
+                    new() { Exact = true }
+                ).ClickAsync();
+                 await page.WaitForTimeoutAsync(2000);
+                
+            // Select Status: Ready to Deploy
 
-await status.WaitForAsync();
+                var status = page.Locator(
+                    "#select2-status_select_id-container"
+                );
 
-Console.WriteLine(await status.CountAsync());
-Console.WriteLine(await status.IsVisibleAsync());
-Console.WriteLine(await status.InnerTextAsync());
-await page.WaitForTimeoutAsync(2000);
-           // Click the visible checkout button
-// Select User for checkout
-await page.Locator(
-    "input[name='checkout_to_type'][value='user']"
-).CheckAsync();
-// Capture the asset tag
-CreatedAssetTag = await page.Locator("#asset_tag").InputValueAsync();
+                await status.WaitForAsync();
 
-Console.WriteLine($"Asset tag: {CreatedAssetTag}");
-// Click Save
-await page.Locator("#submit_button").ClickAsync();
-await page.WaitForTimeoutAsync(2000);
+                Console.WriteLine(await status.CountAsync());
+                Console.WriteLine(await status.IsVisibleAsync());
+                Console.WriteLine(await status.InnerTextAsync());
+                await page.WaitForTimeoutAsync(2000);
+            
+            // Click the visible checkout button
+            // Select User for checkout
+                await page.Locator(
+                    "input[name='checkout_to_type'][value='user']"
+                ).CheckAsync();
+              
+            // Capture the asset tag
+                CreatedAssetTag = await page.Locator("#asset_tag").InputValueAsync();
+
+                Console.WriteLine($"Asset tag: {CreatedAssetTag}");
+              
+            // Click Save
+                await page.Locator("#submit_button").ClickAsync();
+                await page.WaitForTimeoutAsync(2000);
 
         }
         finally
