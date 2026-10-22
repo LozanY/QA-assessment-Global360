@@ -1,21 +1,24 @@
 # Snipe-IT UI Automation
 
-**C#, Playwright and NUnit** to automate tests on the [Snipe-IT demo website](https://demo.snipeitapp.com/).
+**C#, Playwright and NUnit** to automate tests on the [Snipe-IT Demo Website](https://demo.snipeitapp.com/).
 
 ## 1. Requirements
 
 - Mac with Google Chrome installed
 - .NET SDK required by the project (`net10.0`)
-- Project cloned or downloaded from GitHub
+- Git to clone the repository
 
 ## 2. Set Up the Project
 
 Clone the GitHub repository:
 
+```bash
 git clone https://github.com/LozanY/QA-assessment-Global360.git
+```
 
 Navigate to the project directory:
 
+```bash
 cd QA-assessment-Global360/snipeIT-autoTests
 ```
 
@@ -57,7 +60,7 @@ Run the asset creation and validation tests together:
 dotnet test --filter "FullyQualifiedName~AssetTests"
 ```
 
-Run only the asset history test:
+Run only the asset verification - "History" tab test:
 
 ```bash
 dotnet test --filter "FullyQualifiedName~VerifyAssetHistoryTests"
@@ -80,5 +83,4 @@ dotnet test --filter "FullyQualifiedName~VerifyAssetHistoryTests"
 - **Asset not found:** Check the asset tag printed in the test output and search for it manually on the Snipe-IT website.
 - **Test times out:** Check the error message, file name and line number.
 - **Chrome does not open:** Check that Chrome is installed at the path configured in the test code.
-
 
