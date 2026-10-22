@@ -31,22 +31,31 @@ public async Task ValidateCreatedAsset()
         string assetTag = AssetTests.CreatedAssetTag
             ?? throw new InvalidOperationException("No asset tag was captured.");
 
-        var searchField = page.GetByRole(
-             AriaRole.Searchbox,
-            new() { Name = "Search" }).First;
+        // Open the asset list first
+            await page.GotoAsync("https://demo.snipeitapp.com/hardware");
 
-        await searchField.FillAsync(assetTag);
-        await searchField.PressAsync("Enter");
+        // Search for the asset
+            var searchField = page.GetByRole(
+                AriaRole.Searchbox,
+                new() { Name = "Search" }).First;
 
-        // Wait for the asset tag to appear in the search results
-        var assetResult = page.GetByText(
-         assetTag, new() { Exact = true }).First;
+            await searchField.WaitForAsync();
+            await searchField.FillAsync(assetTag);
+            await searchField.PressAsync("Enter");
 
-        await assetResult.WaitForAsync();
-        await assetResult.ClickAsync();
+        // Wait for search results to finish loading
+            await page.WaitForURLAsync("**/hardware?**");
+
+            var assetResult = page.GetByRole(AriaRole.Link)
+                .Filter(new() { HasText = assetTag })
+                .First;
+
+            await assetResult.WaitForAsync();
+            await assetResult.ClickAsync();
 
         // Confirm the asset details page has loaded
-        await page.WaitForTimeoutAsync(2000);
+            await page.WaitForTimeoutAsync(2000);
+
 
     }
     finally
