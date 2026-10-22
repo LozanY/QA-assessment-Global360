@@ -5,9 +5,11 @@ using snipeIT_autoTests.Pages;
 
 namespace snipeIT_autoTests;
 
-public class AssetTests
+public partial class AssetTests
 {
     public static string? CreatedAssetTag;
+    [Order(1)]
+
     [Test]
     public async Task CreateNewAsset()
     {
@@ -61,12 +63,14 @@ public class AssetTests
 
             // Open the Model dropdown
                 await page.Locator("#select2-model_select_id-container").ClickAsync();
-
+            // Wait for dropdown options
+                var modelOptions = page.Locator(".select2-results__option");
+                await modelOptions.First.WaitForAsync();
+           
             // Select MacBook Pro 13"
-                await page.GetByText(
-                    "Laptops - Macbook Pro 13\" (#5525598838148367)",
-                    new() { Exact = true }
-                ).ClickAsync();
+                await page.Locator(".select2-results__option")
+                 .Filter(new() { HasText = "Macbook Pro 13" })
+                 .ClickAsync();
                  await page.WaitForTimeoutAsync(2000);
                 
             // Select Status: Ready to Deploy
