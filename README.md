@@ -1,6 +1,6 @@
 # Snipe-IT UI Automation
 
-A beginner project using **C#, Playwright and NUnit** to automate tests on the [Snipe-IT demo website](https://demo.snipeitapp.com/).
+**C#, Playwright and NUnit** to automate tests on the [Snipe-IT demo website](https://demo.snipeitapp.com/).
 
 ## 1. Requirements
 
@@ -10,10 +10,13 @@ A beginner project using **C#, Playwright and NUnit** to automate tests on the [
 
 ## 2. Set Up the Project
 
-Open Terminal and navigate to your project folder:
+Clone the GitHub repository:
 
-```bash
-cd "/Users/lozan.yalda/QA-assessment-Global360/snipeIT-autoTests"
+git clone https://github.com/LozanY/QA-assessment-Global360.git
+
+Navigate to the project directory:
+
+cd QA-assessment-Global360/snipeIT-autoTests
 ```
 
 Restore dependencies:
